@@ -14,7 +14,7 @@
    if (window.MathJax?.typesetClear) MathJax.typesetClear([main]);
    main.innerHTML = siteContent[chosenLang][page];
    document.documentElement.lang = chosenLang;
-   document.title = `${siteContent[chosenLang].name} | ${siteContent[chosenLang].nav[pages.indexOf(page)]}`;
+   document.title = `田邉直純 / Naozumi Tanabe | ${siteContent[chosenLang].nav[pages.indexOf(page)]}`;
    document.querySelector('.brand-name').textContent = siteContent[chosenLang].name;
    document.querySelector('.brand-group').textContent = siteContent[chosenLang].discipline;
    document.querySelector('footer > span').textContent = `© ${siteContent[chosenLang].name}`;
