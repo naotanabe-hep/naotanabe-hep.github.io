@@ -13,6 +13,9 @@
    if (window.MathJax?.startup?.promise) await MathJax.startup.promise;
    if (window.MathJax?.typesetClear) MathJax.typesetClear([main]);
    main.innerHTML = siteContent[chosenLang][page];
+   main.querySelectorAll('.publication h3').forEach((heading, index) => {
+    heading.prepend(document.createTextNode(`[${index + 1}] `));
+   });
    document.documentElement.lang = chosenLang;
    document.title = `田邉直純 / Naozumi Tanabe | ${siteContent[chosenLang].nav[pages.indexOf(page)]}`;
    document.querySelector('.brand-name').textContent = siteContent[chosenLang].name;
