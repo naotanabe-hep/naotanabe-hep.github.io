@@ -13,8 +13,9 @@
    if (window.MathJax?.startup?.promise) await MathJax.startup.promise;
    if (window.MathJax?.typesetClear) MathJax.typesetClear([main]);
    main.innerHTML = siteContent[chosenLang][page];
-   main.querySelectorAll('.publication h3').forEach((heading, index) => {
-    heading.prepend(document.createTextNode(`[${index + 1}] `));
+   const publicationHeadings = main.querySelectorAll('.publication h3');
+   publicationHeadings.forEach((heading, index) => {
+    heading.prepend(document.createTextNode(`[${publicationHeadings.length - index}] `));
    });
    document.documentElement.lang = chosenLang;
    document.title = `田邉直純 / Naozumi Tanabe | ${siteContent[chosenLang].nav[pages.indexOf(page)]}`;
