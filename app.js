@@ -9,8 +9,6 @@
   const page = pages.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'profile';
   const chosenLang = lang;
   rendering = rendering.catch(() => {}).then(async () => {
-   // Wait for MathJax's startup pass before replacing any already-typeset content.
-   if (window.MathJax?.startup?.promise) await MathJax.startup.promise;
    if (window.MathJax?.typesetClear) MathJax.typesetClear([main]);
    main.innerHTML = siteContent[chosenLang][page];
    const publicationHeadings = main.querySelectorAll('.publication h3');
@@ -24,7 +22,13 @@
    document.querySelector('footer > span').textContent = `© ${siteContent[chosenLang].name}`;
    document.querySelectorAll('[data-page]').forEach((a,i) => { a.textContent = siteContent[chosenLang].nav[i]; if(a.dataset.page===page) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
    document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-pressed',String(b.dataset.lang===chosenLang)));
-   if(window.MathJax?.typesetPromise) await MathJax.typesetPromise([main]);
+   // Keep page content available even if math initialization fails.
+   try {
+    if (window.MathJax?.startup?.promise) await MathJax.startup.promise;
+    if (window.MathJax?.typesetPromise) await MathJax.typesetPromise([main]);
+   } catch (error) {
+    console.error('Unable to render mathematical notation:', error);
+   }
   });
  }
  document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click',() => {

@@ -1,5 +1,6 @@
 window.MathJax = {
-  output: {font: 'mathjax-tex'},
+  startup: {typeset: false},
+  svg: {fontCache: 'local'},
   tex: {inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], tags: 'ams'},
   options: {skipHtmlTags: ['script','noscript','style','textarea','pre','code']}
 };
